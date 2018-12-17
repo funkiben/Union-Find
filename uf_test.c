@@ -54,17 +54,17 @@ void test_correctness() {
     uf_free(s);
 }
 
-void stress_test() {
+void stress_test(int uf_size, int union_ops, int find_ops) {
     srand(123);
     
-    UF* s = uf_create(1000);
+    UF* s = uf_create(uf_size);
     
-    for (int i = 0; i < 100000; i++) {
-        uf_union(s, rand() % 1000, rand() % 1000);
+    for (int i = 0; i < union_ops; i++) {
+        uf_union(s, rand() % uf_size, rand() % uf_size);
     }
     
-    for (int i = 0; i < 100000; i++) {
-        uf_find(s, rand() % 1000);
+    for (int i = 0; i < find_ops; i++) {
+        uf_find(s, rand() % uf_size);
     }
     
     uf_free(s);
@@ -74,8 +74,12 @@ int main() {
     
     test_correctness();
     
-    stress_test();
+    stress_test(100000, 100, 10000000);
 
+    stress_test(100, 100, 10000000);
+
+    stress_test(100, 1000000, 10000000);
+    
     printf("All tests passed!\n");
     
     return 0;
