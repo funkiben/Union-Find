@@ -80,6 +80,8 @@ int main() {
 
     stress_test(100, 1000000, 10000000);
     
+    stress_test(10000000, 100000000, 100000000);
+    
     printf("All tests passed!\n");
     
     return 0;
